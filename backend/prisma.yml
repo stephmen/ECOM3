@@ -1,0 +1,9 @@
+#endpoint: ${env:PRISMA_ENDPOINT}
+endpoint: 'http://host.docker.internal:4466'
+#endpoint: https://sick-fits-prod-27bec7512c.herokuapp.com/sick-fits-prod/prod
+#datamodel: datamodel.prisma
+datamodel: datamodel.graphql
+#secret: ${env:PRISMA_SECRET}
+hooks:
+  post-deploy:
+    - graphql get-schema -p prisma
