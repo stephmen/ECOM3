@@ -5,9 +5,10 @@ import Header from '../components/Header';
 class homepage extends Component {
   render() {
     return (
-
       <div>
-        <p>Bienvenue sur cette page d'acceuil</p>
+        <Header>
+          <p>Bienvenue sur cette page d'acceuil</p>
+        </Header>
       </div>
 
     );
