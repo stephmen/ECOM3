@@ -1,8 +1,8 @@
-import Items from '../components/Items';
+// import Items from '../components/Items';
+import HomePage from '../components/HomePage';
 
 const Home = props => (
-  <div>
-    <Items page={parseFloat(props.query.page) || 1 } />
-  </div>
+    // <Items page={parseFloat(props.query.page) || 1 } />
+    <HomePage />
 );
 export default Home;
