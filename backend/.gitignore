@@ -87,3 +87,4 @@ typings/
 
 #Docker
 Dockerfile
+.DS_Store
