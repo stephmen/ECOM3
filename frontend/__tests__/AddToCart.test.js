@@ -1,11 +1,11 @@
-import { mount } from "enzyme";
-import wait from "waait";
-import toJSON from "enzyme-to-json";
-import { MockedProvider } from "react-apollo/test-utils";
-import { ApolloConsumer } from "react-apollo";
-import AddToCart, { ADD_TO_CART_MUTATION } from "../components/AddToCart";
-import { CURRENT_USER_QUERY } from "../components/User";
-import { fakeUser, fakeCartItem } from "../lib/testUtils";
+import { mount } from 'enzyme';
+import wait from 'waait';
+import toJSON from 'enzyme-to-json';
+import { MockedProvider } from 'react-apollo/test-utils';
+import { ApolloConsumer } from 'react-apollo';
+import AddToCart, { ADD_TO_CART_MUTATION } from '../components/AddToCart';
+import { CURRENT_USER_QUERY } from '../components/User';
+import { fakeUser, fakeCartItem } from '../lib/testUtils';
 
 const mocks = [
   {
@@ -14,20 +14,10 @@ const mocks = [
       data: {
         me: {
           ...fakeUser(),
-          cart: []
-        }
-      }
-    }
-  },
-  {
-    request: { query: ADD_TO_CART_MUTATION, variables: { id: 'abc123'}},
-    result:{
-      data:{
-        addToCart: {
-          ...fakeCartItem(),
-        }
-      }
-    }
+          cart: [],
+        },
+      },
+    },
   },
   {
     request: { query: CURRENT_USER_QUERY },
@@ -35,50 +25,63 @@ const mocks = [
       data: {
         me: {
           ...fakeUser(),
-          cart: [fakeCartItem()],
-        }
-      }
-    }
-  }
+        cart: [fakeCartItem()],
+        },
+      },
+    },
+  },
+  {
+    request: { query: ADD_TO_CART_MUTATION, variables: { id: 'abc123' } },
+    result: {
+      data: {
+        AddToCart: {
+          ...fakeCartItem(),
+          quantity: 1,
+        },
+      },
+    },
+  },
 ];
 
 describe('<AddToCart/>', () => {
-  it('render and matches the snapshot', async () => {
+  it('renders and matches the snap shot', async () => {
     const wrapper = mount(
-    <MockedProvider mocks={mocks}>
-      <AddToCart id="abc123" />
-    </MockedProvider>
+      <MockedProvider mocks={mocks}>
+        <AddToCart id="abc123" />
+      </MockedProvider>
     );
-    await wait();
+    await wait(50);
     wrapper.update();
     expect(toJSON(wrapper.find('button'))).toMatchSnapshot();
-
   });
+
   it('adds an item to cart when clicked', async () => {
-    let apolloClient
+    let apolloClient;
     const wrapper = mount(
       <MockedProvider mocks={mocks}>
         <ApolloConsumer>
-        {(client)=> {
+          {client => {
             apolloClient = client;
-          return <AddToCart id="abc123" />
+            return <AddToCart id="abc123" />;
           }}
-          </ApolloConsumer>
+        </ApolloConsumer>
       </MockedProvider>
-      );
-      await wait()
-      wrapper.update();
-      const {data: {me}} = await apolloClient.query({ query: CURRENT_USER_QUERY});
-      expect(me.cart).toHaveLength(0);
-      //add an item to the cart
-      wrapper.find('button').simulate('click');
-      await wait();
-      // // check if item has been added to cart
-      const {data: { me: me2}} = await apolloClient.query({ query: CURRENT_USER_QUERY});
-      expect(me2.cart).toHaveLength(1);
-      expect(me2.cart[0].id).toBe('omg123');
-      expect(me2.cart[0].quantity).toBe(3);
-  })
+    );
+    await wait(50);
+    wrapper.update();
+    const { data: { me } } = await apolloClient.query({ query: CURRENT_USER_QUERY });
+    // console.log(me);
+    expect(me.cart).toHaveLength(0);
+    // add an item to the cart
+    wrapper.find('button').simulate('click');
+    await wait(50);
+    // check if the item is in the cart
+    const { data: { me: me2 } } = await apolloClient.query({ query: CURRENT_USER_QUERY });
+    expect(me2.cart).toHaveLength(1);
+    expect(me2.cart[0].id).toBe('omg123');
+    expect(me2.cart[0].quantity).toBe(3);
+  });
+
   it('changes from add to adding when clicked', async () => {
     const wrapper = mount(
       <MockedProvider mocks={mocks}>
@@ -89,6 +92,6 @@ describe('<AddToCart/>', () => {
     wrapper.update();
     expect(wrapper.text()).toContain('Add To Cart');
     wrapper.find('button').simulate('click');
-    expect(wrapper.text()).toContain('Adding To Cart 🛒');
-  })
+    expect(wrapper.text()).toContain('Adding To Cart');
+  });
 });

@@ -29,7 +29,7 @@ exports[`<Order /> renders the order 1`] = `
       Date
     </span>
     <span>
-      March 31, 2018 8:00 PM
+      March 31, 2018 5:00 PM
     </span>
   </p>
   <p>
