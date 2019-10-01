@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from '../components/Header';
 
 
-class homepage extends Component {
-  render() {
+const homepage = () => {
+
     return (
       <div>
         <Header>
@@ -13,6 +13,6 @@ class homepage extends Component {
 
     );
   }
-}
+
 
 export default homepage;

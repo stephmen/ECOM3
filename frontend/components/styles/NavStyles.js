@@ -5,7 +5,7 @@ const NavStyles = styled.ul`
   padding: 0;
   display: flex;
   justify-self: end;
-  font-size: 2rem;
+  font-size: 1.5rem;
   a,
   button {
     padding: 1rem 3rem;
@@ -13,7 +13,7 @@ const NavStyles = styled.ul`
     align-items: center;
     position: relative;
     text-transform: uppercase;
-    font-weight: 900;
+    font-weight: 400;
     font-size: 1em;
     background: none;
     border: 0;
@@ -37,7 +37,7 @@ const NavStyles = styled.ul`
     }
     &:after {
       height: 2px;
-      background: red;
+      background: green;
       content: '';
       width: 0;
       position: absolute;

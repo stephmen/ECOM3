@@ -6,7 +6,7 @@ Array [
     data-test="nav"
   >
     <ul
-      className="NavStyles-sc-11c0d2g-0 dDiqeM"
+      className="NavStyles-sc-11c0d2g-0 fGuYbK"
       data-test="nav"
     >
       <Link
@@ -32,7 +32,7 @@ Array [
     </ul>
   </NavStyles>,
   <ul
-    className="NavStyles-sc-11c0d2g-0 dDiqeM"
+    className="NavStyles-sc-11c0d2g-0 fGuYbK"
     data-test="nav"
   >
     <Link
